@@ -1,0 +1,110 @@
+/* デフォルト */
+@charset "utf-8";
+  
+  /* レスポンシブ設定 */
+  
+  $breakpoints: (
+      "ssp" : "screen and (max-width:320px)",
+      "sp" : "screen and (max-width:540px)",
+      "tb" : "screen and (max-width:768px)",
+      "mb" : "screen and (max-width:900px)",
+      "nb" : "screen and (max-width:1024px)",
+      "np" : "screen and (max-width:1440px)",
+  ) !default;
+  
+  @mixin pc($breakpoint :nb){
+    @media #{map-get($breakpoints, $breakpoint)} {
+        @content;
+    }
+  }
+  
+  @media screen and (min-width:321px){
+    .ssp{display:none;}
+  }
+  @media screen and (min-width:541px){
+    .sp{display:none;}
+  }
+  @media screen and (max-width:540px){
+    .pc{display:none;}
+  }
+  
+  @media screen and (min-width:769px){
+    .tb{display:none;}
+  }
+  @media screen and (max-width:768px){
+    .nb{display:none;}
+  }
+
+  body {
+    padding: 0;
+    margin: 0 auto;
+    font-family: "source-han-sans-japanese", sans-serif;
+  }
+
+  img{
+    display: block;
+    max-width: 750px;
+    margin: 0 auto;
+    width: 100%;
+    &.mt{
+        margin-top: -120px;
+        @include pc(sp){
+            margin-top: -60px;
+        }
+    }
+  }
+
+  a{
+    display: block;
+    margin: 20px auto;
+    width: 95%;
+    position: relative;
+    padding: 20px 0;
+    overflow: hidden;
+    img{
+        &.bounce {
+            animation: bounce 1.5s infinite;
+        }
+    }
+    &.button{
+        margin: 0 auto;
+        width: 90%;
+        transform: translateY(-170px);
+        @include pc(sp){
+            transform: translateY(-90px);
+        }
+    }
+    &.shine{
+        &::after{
+            position:absolute;
+            top:-90%;
+            left:-150%;
+            content:"";
+            height:270%;
+            width:70px;
+            background:linear-gradient(90deg, rgba(255,255,255,0),rgba(255,255,255,0.6) 70%,rgba(255,255,255,0));
+            transform: rotate(60deg);
+            animation:2.5s shine infinite linear;
+        }
+    }
+  }
+  
+
+@keyframes shine{
+    0%{
+      left:-100%;
+    }
+    80%{
+      left:150%;
+    }
+    100%{
+      left:150%;
+    }
+}
+
+@keyframes bounce {
+    0% {transform: translate(0px, 10px);}
+    10% {transform: translate(0px, -10px);}
+    20% {transform: translate(0px, 10px);}
+    30% {transform: translate(0px, 0px);}
+}
